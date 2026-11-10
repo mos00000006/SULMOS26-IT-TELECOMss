@@ -1,0 +1,5 @@
+{
+ "name":"sulmos26-it-telecom", "version":"1.0.0", "private":true,"type":"module",
+ "scripts":{"dev":"wrangler dev", "deploy":"wrangler deploy", "db:local":"wrangler d1 migrations apply sulmos26-it-telecom-db --local", "db:remote":"wrangler d1 migrations apply sulmos26-it-telecom-db --remote", "check":"node --check src/index.js && node --check public/app.js"},
+ "devDependencies":{"wrangler":"^4.0.0"}
+}
