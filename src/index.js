@@ -6,7 +6,7 @@ const safe=(v,n=500)=>String(v??'').trim().slice(0,n);
 const nowPlus=days=>new Date(Date.now()+days*86400000).toISOString();
 const hex=b=>Array.from(new Uint8Array(b),x=>x.toString(16).padStart(2,'0')).join('');
 async function digest(s){return hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))}
-async function passwordHash(password,salt){const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:210000,hash:'SHA-256'},key,256))}
+async function passwordHash(password,salt){const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:100000,hash:'SHA-256'},key,256))}
 function equal(a,b){if(a.length!==b.length)return false;let x=0;for(let i=0;i<a.length;i++)x|=a.charCodeAt(i)^b.charCodeAt(i);return x===0;}
 function cookie(token,age){return `sulmos_session=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${age}`;}
 async function body(request){if(Number(request.headers.get('content-length')||'0')>35000)throw Error('Request too large');const raw=await request.text();if(raw.length>35000)throw Error('Request too large');return JSON.parse(raw||'{}');}
